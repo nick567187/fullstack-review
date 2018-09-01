@@ -2,15 +2,27 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+  name: String,
+  htmlurl: {type: String, unique: true},
+  login: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+let save = (data) => {
+
+  data.forEach(function(elem) {
+   console.log(elem.login)
+    var item = new Repo ({
+       name: elem.name,
+       htmlurl: elem['html_url'],
+       login: elem.owner.login
+    });
+    item.save(function(err) {
+      if(err) { console.log(err) };
+    });
+  });  
 }
 
+module.exports.Repo = Repo;
 module.exports.save = save;

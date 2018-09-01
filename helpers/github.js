@@ -1,7 +1,5 @@
 const request = require('request');
-
-
-const config = 'deployment' || require('../config.js');
+// const config = TOKEN || require('../config.js');
 
 let getReposByUsername = (username, cb) => {
   

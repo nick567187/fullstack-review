@@ -16,7 +16,6 @@ class App extends React.Component {
 
   componentWillMount() {
      var x = this.setState.bind(this);
- 
     $.get('/repos', function(result) {
       console.log('what are my client side results', result)
       x({
@@ -31,21 +30,19 @@ class App extends React.Component {
     console.log(`${term} was searched`);
 
     var x = this.setState.bind(this);
-    $.post('/repos', {results:term}, function(err, result) {
-      if(err) { console.log(err) };
+    $.ajax({
+      method: "POST",
+      url: '/repos',
+      data: {results:term}, 
+      success: function(data) {
       $.get('/repos', function(result) {
         x({
           repos: result
         });
       });
-    });
-
-    $.get('/repos', function(result) {
-      x({
-        repos: result
-      });
-    });
-  }
+    }
+  });
+}
 
   render () {
     

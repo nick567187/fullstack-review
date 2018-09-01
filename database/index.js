@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://nick567187:charles1@ds018508.mlab.com:18508/tester');
 
 let repoSchema = mongoose.Schema({
   name: String,

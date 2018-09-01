@@ -11,39 +11,32 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-    
   }
 
-
   componentWillMount() {
-     var x = this.setState.bind(this);
+    this.request()
+  }
+
+  search (term) {
+    console.log(`${term} was searched`);
+    $.ajax({
+      method: "POST",
+      url: '/repos',
+      data: {results:term}, 
+      success: (data) => {
+        this.request()
+      }
+    })
+  }
+
+  request () {
+    var x = this.setState.bind(this);
     $.get('/repos', function(result) {
-      console.log('what are my client side results', result)
       x({
         repos: result
       });
     });
   }
-
-  
-
-  search (term) {
-    console.log(`${term} was searched`);
-
-    var x = this.setState.bind(this);
-    $.ajax({
-      method: "POST",
-      url: '/repos',
-      data: {results:term}, 
-      success: function(data) {
-      $.get('/repos', function(result) {
-        x({
-          repos: result
-        });
-      });
-    }
-  });
-}
 
   render () {
     
